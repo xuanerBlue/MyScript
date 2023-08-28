@@ -1,0 +1,29 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network File Transfer</title>
+</head>
+<body>
+    <h1>Network File Transfer</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file">
+        <input type="submit" value="Upload">
+    </form>
+    <hr>
+    <h2>Available files for download:</h2>
+    <ul id="fileList"></ul>
+    <script>
+        fetch('/list_files')
+            .then(response => response.json())
+            .then(files => {
+                const fileList = document.getElementById('fileList');
+                files.forEach(file => {
+                    const li = document.createElement('li');
+                    li.textContent = file;
+                    fileList.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>
